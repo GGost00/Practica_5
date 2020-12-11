@@ -1,5 +1,4 @@
 ﻿#include "pacman.h"
-
 int pacman::getPosx() const
 {
     return posx;
@@ -47,7 +46,7 @@ pacman::pacman(int x, int y)
     columnas=0;
 
     pixmap = new QPixmap(":/images/pac.png");
-    setScale(0.3);
+    setScale(0.22);
     ancho=100;
     alto=100;
     timer->start(33);
@@ -71,9 +70,8 @@ void pacman::up()
 {
 Actualizacion();
 setRotation(270);
-if(posy<15){
-}else{posy -= 2*velocidad;
-    setPos(posx,posy);}
+posy -= 2*velocidad;
+    setPos(posx,posy);
 
 }
 
@@ -81,9 +79,8 @@ void pacman::down()
 {
 Actualizacion();
 setRotation(90);
-if(posy>485){
-}else{posy += 2*velocidad;
-    setPos(posx,posy);}
+posy += 2*velocidad;
+    setPos(posx,posy);
 
 }
 
@@ -91,8 +88,8 @@ void pacman::left()
 {
 Actualizacion();
 setRotation(180);
-if(posx<15){}else{posx -= 2*velocidad;
-    setPos(posx,posy);}
+posx -= 2*velocidad;
+    setPos(posx,posy);
 
 }
 
@@ -101,14 +98,16 @@ void pacman::right()
 Actualizacion();
 setRotation(0);
 
-if(posx>385){}else{posx += 2*velocidad;
-    setPos(posx,posy);}
+posx += 2*velocidad;
+    setPos(posx,posy);
 
 }
 
 void pacman::Actualizacion()
 {
+
  columnas+=100;
  if(columnas>=900){columnas=0;}
  this->update(-ancho/2,-alto/2,ancho,alto);
+
 }

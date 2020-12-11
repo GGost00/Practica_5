@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui multimedia
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,15 +13,18 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     moneda.cpp \
-    pacman.cpp
+    pacman.cpp \
+    pared.cpp
 
 HEADERS += \
     mainwindow.h \
     moneda.h \
-    pacman.h
+    pacman.h \
+    pared.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    mainwindow_copy.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,6 +32,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    images.qrc
+    images.qrc \
+    sounds.qrc
 
 DISTFILES +=

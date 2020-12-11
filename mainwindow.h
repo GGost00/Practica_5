@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QMediaPlayer>
+#include <iostream>
+#include <fstream>
 #include <QMainWindow>
 #include <QPainter>
 #include <QGraphicsItem>
@@ -11,6 +14,9 @@
 #include<QWidget>
 #include "pacman.h"
 #include "moneda.h"
+#include "pared.h"
+
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,16 +30,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     QList<moneda *> monedas;
-
+    QList<pared *> paredes;
 private slots:
-    void on_label_3_linkHovered(const QString &link);
 
 private:
     Ui::MainWindow *ui;
+
     QGraphicsScene *scene;
     pacman *personaje;
     void keyPressEvent(QKeyEvent * evento);
     QList<moneda *> eliminarMoneda(QList<moneda *> monedas,int pos);
+    int dificultad(int x);
+    void nuevojuego();
     float x,y,ancho,alto;
 };
 #endif // MAINWINDOW_H

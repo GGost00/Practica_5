@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <QPainter>
 
+
 class pacman : public QObject,public QGraphicsItem
 {
     Q_OBJECT
@@ -16,6 +17,7 @@ public:
 //    explicit pacman(QObject *parent = nullptr);
 
     QTimer * timer;
+
     QPixmap * pixmap;
 
     float filas, columnas;
