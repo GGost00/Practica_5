@@ -35,7 +35,8 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
     movimientos-=1;
     ui->tiempo->setText(QString::number(movimientos));
     QMediaPlayer *music2 =new QMediaPlayer();
-    music2->setMedia(QUrl("qrc:/sounds/comida pacman.mp3"));
+    music2->setMedia(QUrl("qrc:/sounds/mario-coin.mp3"));
+
     if(evento->key() == Qt::Key_A){
         personaje->left();
         if(220<personaje->getPosy()<240 &&personaje->getPosx()<0){
@@ -45,11 +46,11 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
             if(personaje->collidesWithItem(monedas.at(i))){
                 scene->removeItem(monedas.at(i));
                 monedas= eliminarMoneda(monedas,i);
-
+                music2->play();
                 Puntaje+=1;
                 movimientos+=dificultad(dificult);
                 ui->puntaje->setText(QString::number(Puntaje));
-                music2->play();
+
             }
         }
         for(int i=0;i<paredes.size();i++){
@@ -69,11 +70,11 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
             if(personaje->collidesWithItem(monedas.at(i))){
                 scene->removeItem(monedas.at(i));
                 monedas= eliminarMoneda(monedas,i);
-
+                music2->play();
                 Puntaje+=1;
                 movimientos+=dificultad(dificult);
                 ui->puntaje->setText(QString::number(Puntaje));
-                music2->play();
+
             }
         }
         for(int i=0;i<paredes.size();i++){
@@ -90,11 +91,11 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
             if(personaje->collidesWithItem(monedas.at(i))){
                 scene->removeItem(monedas.at(i));
                 monedas= eliminarMoneda(monedas,i);
-
+                music2->play();
                 Puntaje+=1;
                 movimientos+=dificultad(dificult);
                 ui->puntaje->setText(QString::number(Puntaje));
-                music2->play();
+
             }
         }
         for(int i=0;i<paredes.size();i++){
@@ -110,11 +111,11 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
             if(personaje->collidesWithItem(monedas.at(i))){
                 scene->removeItem(monedas.at(i));
                 monedas= eliminarMoneda(monedas,i);
-
+                music2->play();
                 Puntaje+=1;
                 movimientos+=dificultad(dificult);
                 ui->puntaje->setText(QString::number(Puntaje));
-                music2->play();
+
             }
         }
         for(int i=0;i<paredes.size();i++){
@@ -230,20 +231,20 @@ void MainWindow::nuevojuego()
         Leer.getline(linea, sizeof(linea));
     }
     Leer.close();
-//    for (int i=30;i<500 ;i+=30 ) {
-//        for (int j=30;j<400 ;j+=30) {
-//             monedas.push_back(new moneda(j,i));scene->addItem(monedas.back());
-//        }
-//    }
-//    for(int j=0;j<paredes.size();j++){
-//        for(int i=0;i<monedas.size();i++){
-//            if(monedas.at(i)->collidesWithItem(paredes.at(j))){
-//                scene->removeItem(monedas.at(i));
-//                monedas= eliminarMoneda(monedas,i);
+    //    for (int i=30;i<500 ;i+=30 ) {
+    //        for (int j=30;j<400 ;j+=30) {
+    //             monedas.push_back(new moneda(j,i));scene->addItem(monedas.back());
+    //        }
+    //    }
+    //    for(int j=0;j<paredes.size();j++){
+    //        for(int i=0;i<monedas.size();i++){
+    //            if(monedas.at(i)->collidesWithItem(paredes.at(j))){
+    //                scene->removeItem(monedas.at(i));
+    //                monedas= eliminarMoneda(monedas,i);
 
-//            }
-//        }
-//    }
+    //            }
+    //        }
+    //    }
 
     Leer.open("/Users/Gabriel Restrepo/Documents/practica_5/money.txt");
     char line[20];
@@ -268,7 +269,8 @@ void MainWindow::nuevojuego()
     Leer.close();
     total+=138;
     QMediaPlayer *music1 =new QMediaPlayer();
-    music1->setMedia(QUrl("qrc:/sounds/inicio pacman.mp3"));
+    music1->setMedia(QUrl("qrc:/sounds/pacman-song.mp3"));
+    _sleep(2000);
     music1->play();
 
 }

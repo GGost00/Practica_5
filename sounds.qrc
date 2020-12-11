@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>sounds/comida pacman.mp3</file>
-        <file>sounds/inicio pacman.mp3</file>
+        <file>sounds/mario-coin.mp3</file>
+        <file>sounds/pacman-song.mp3</file>
+        <file>sounds/level-levelup-up.mp3</file>
     </qresource>
 </RCC>
