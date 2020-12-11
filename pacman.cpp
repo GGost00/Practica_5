@@ -54,6 +54,7 @@ pacman::pacman(int x, int y)
 
     connect(timer,&QTimer::timeout,this,&pacman::Actualizacion);
 
+
 }
 
 QRectF pacman::boundingRect() const
@@ -111,3 +112,4 @@ void pacman::Actualizacion()
  this->update(-ancho/2,-alto/2,ancho,alto);
 
 }
+

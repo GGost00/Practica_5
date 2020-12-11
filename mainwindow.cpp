@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 int Puntaje=0;
-int movimientos=500;
+int movimientos=250;
 int dificult=1;
 int total=0;
 int vidas=3;
@@ -24,11 +24,18 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
     }
     if(movimientos<=0){
         vidas-=1;
-        movimientos=500;
+        movimientos=250;
+        scene->removeItem(personaje);
+        personaje= new pacman(199,280);
+        personaje->setFlag(QGraphicsItem::ItemIsFocusable);
+        personaje->setFocus();
+        scene->addItem(personaje);
         if(vidas==0){
-            nuevojuego();
             dificult=1;
             Puntaje=0;
+            vidas=3;
+            nuevojuego();
+
         }
         ui->vidas->setText(QString::number(vidas));
     }
