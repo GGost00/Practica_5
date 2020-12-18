@@ -2,15 +2,18 @@
 #include "ui_mainwindow.h"
 
 int Puntaje=0;
-int movimientos=250;
+int movimientos;
 int dificult=1;
 int total=0;
 int vidas=3;
-
+QTimer *timer;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     ,ui(new Ui::MainWindow)
 {
+    timer=new QTimer(this);
+    timer->setInterval(1000);
+
     nuevojuego();
 
 
@@ -19,27 +22,12 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
     if(Puntaje==total){
         dificult+=1;
+
         ui->dificultad->setText(QString::number(dificult));
+        timer->disconnect();
         nuevojuego();
     }
-    if(movimientos<=0){
-        vidas-=1;
-        movimientos=250;
-        scene->removeItem(personaje);
-        personaje= new pacman(199,280);
-        personaje->setFlag(QGraphicsItem::ItemIsFocusable);
-        personaje->setFocus();
-        scene->addItem(personaje);
-        if(vidas==0){
-            dificult=1;
-            Puntaje=0;
-            vidas=3;
-            nuevojuego();
 
-        }
-        ui->vidas->setText(QString::number(vidas));
-    }
-    movimientos-=1;
     ui->tiempo->setText(QString::number(movimientos));
     QMediaPlayer *music2 =new QMediaPlayer();
     music2->setMedia(QUrl("qrc:/sounds/mario-coin.mp3"));
@@ -55,7 +43,8 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
                 monedas= eliminarMoneda(monedas,i);
                 music2->play();
                 Puntaje+=1;
-                movimientos+=dificultad(dificult);
+
+                movimientos=tiempo(dificult);
                 ui->puntaje->setText(QString::number(Puntaje));
 
             }
@@ -79,7 +68,8 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
                 monedas= eliminarMoneda(monedas,i);
                 music2->play();
                 Puntaje+=1;
-                movimientos+=dificultad(dificult);
+
+                movimientos=tiempo(dificult);
                 ui->puntaje->setText(QString::number(Puntaje));
 
             }
@@ -100,7 +90,8 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
                 monedas= eliminarMoneda(monedas,i);
                 music2->play();
                 Puntaje+=1;
-                movimientos+=dificultad(dificult);
+
+                movimientos=tiempo(dificult);
                 ui->puntaje->setText(QString::number(Puntaje));
 
             }
@@ -120,7 +111,8 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
                 monedas= eliminarMoneda(monedas,i);
                 music2->play();
                 Puntaje+=1;
-                movimientos+=dificultad(dificult);
+
+                movimientos=tiempo(dificult);
                 ui->puntaje->setText(QString::number(Puntaje));
 
             }
@@ -147,31 +139,31 @@ QList<moneda *> MainWindow::eliminarMoneda(QList<moneda *> monedas, int pos)
     return aux;
 }
 
-int MainWindow::dificultad(int x)
+int MainWindow::tiempo(int x)
 {
     switch(x){
     case 1:
-        return 10;
+        return 90;
     case 2:
-        return 9;
+        return 60;
     case 3:
-        return 8;
+        return 50;
     case 4:
-        return 8;
+        return 40;
     case 5:
-        return 7;
+        return 35;
     case 6:
-        return 7;
+        return 30;
     case 7:
-        return 6;
+        return 25;
     case 8:
-        return 6;
+        return 20;
     case 9:
-        return 5;
+        return 15;
     case 10:
-        return 5;
+        return 10;
     default:
-        return 4;
+        return 5;
     }
 
 }
@@ -180,7 +172,10 @@ void MainWindow::nuevojuego()
 {
     ifstream Leer;
     int ancho1,alto1,posix,posiy,posjx,posjy;
+    connect(timer,SIGNAL(timeout()),this,SLOT(timer_timeout()));
+    timer->start();
 
+    movimientos=tiempo(dificult);
     ui->setupUi(this);
     ui->dificultad->setText(QString::number(dificult));
     ui->puntaje->setText(QString::number(Puntaje));
@@ -191,7 +186,6 @@ void MainWindow::nuevojuego()
     y=Desktop.y();
     ancho=398;
     alto=497;
-
     scene = new QGraphicsScene(x,y,ancho,alto);
     scene->setBackgroundBrush(QPixmap(":/images/map.png"));
 
@@ -281,7 +275,35 @@ void MainWindow::nuevojuego()
     music1->play();
 
 }
+
+void MainWindow::timer_timeout()
+{
+    movimientos--;
+    ui->tiempo->setText(QString::number(movimientos));
+    if(movimientos<=0){
+        vidas-=1;
+        movimientos=tiempo(dificult);
+        scene->removeItem(personaje);
+        personaje= new pacman(199,280);
+        personaje->setFlag(QGraphicsItem::ItemIsFocusable);
+        personaje->setFocus();
+        scene->addItem(personaje);
+        if(vidas==0){
+            dificult=1;
+            Puntaje=0;
+            vidas=3;
+            timer->disconnect();
+            nuevojuego();
+
+        }
+        ui->vidas->setText(QString::number(vidas));
+    }
+
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+

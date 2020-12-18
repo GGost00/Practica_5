@@ -12,15 +12,18 @@
 #include<QGraphicsScene>
 #include<QGraphicsView>
 #include<QWidget>
+#include <QTimer>
 #include "pacman.h"
 #include "moneda.h"
 #include "pared.h"
 
 using namespace std;
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 {
@@ -32,6 +35,7 @@ public:
     QList<moneda *> monedas;
     QList<pared *> paredes;
 private slots:
+       void timer_timeout();
 
 private:
     Ui::MainWindow *ui;
@@ -40,8 +44,9 @@ private:
     pacman *personaje;
     void keyPressEvent(QKeyEvent * evento);
     QList<moneda *> eliminarMoneda(QList<moneda *> monedas,int pos);
-    int dificultad(int x);
+    int tiempo(int x);
     void nuevojuego();
+
     float x,y,ancho,alto;
 };
 #endif // MAINWINDOW_H

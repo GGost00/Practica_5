@@ -19,6 +19,8 @@ void pacman::setPosy(int value)
     posy = value;
 }
 
+
+
 //pacman::pacman(QObject *parent) : QObject(parent)
 //{
 //    timer= new QTimer();
@@ -112,4 +114,3 @@ void pacman::Actualizacion()
  this->update(-ancho/2,-alto/2,ancho,alto);
 
 }
-
